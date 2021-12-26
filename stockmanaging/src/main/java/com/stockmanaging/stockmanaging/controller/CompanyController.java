@@ -37,14 +37,10 @@ public class CompanyController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Company> getCompanyById(@PathVariable("id") Long id) {
-		
 		Optional<Company> company = companyService.getCompanyById(id);
-		System.out.println("company : " + company);
-		
 		if(company.isEmpty()) {
 			throw new ResourceNotFoundException("no company found with that id");
 		}
-		
 		return ResponseEntity.of(company);
 	}
 	
