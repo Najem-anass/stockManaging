@@ -1,19 +1,25 @@
 package com.stockmanaging.stockmanaging.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "company")
 @Data
+@NoArgsConstructor
 public class Company implements Serializable {
 
 	/**
@@ -36,58 +42,10 @@ public class Company implements Serializable {
 	private String phone;
 
 	private String description;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getMail() {
-		return mail;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
-	public String getPicture() {
-		return picture;
-	}
-
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 	
-	public Company() {
-		super();
-	}
+	@JsonIgnore
+	@OneToMany(mappedBy = "company")
+	private List<Employee> employees;
 
 	public Company(String name, String mail, String picture, String phone, String description) {
 		super();
@@ -97,6 +55,18 @@ public class Company implements Serializable {
 		this.phone = phone;
 		this.description = description;
 	}
+
+	public Company(String name, String mail, String picture, String phone, String description,
+			List<Employee> employees) {
+		super();
+		this.name = name;
+		this.mail = mail;
+		this.picture = picture;
+		this.phone = phone;
+		this.description = description;
+		this.employees = employees;
+	}
+	
 	
 	
 	
